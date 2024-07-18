@@ -1,0 +1,196 @@
+﻿<Window x:Class="EmployeeManagement1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeeManagement1"
+         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Employee Management" Height="450" Width="800">
+    <Window.Resources>
+        
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="RoleData">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:Role" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="CurrencyData">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:Currency" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <DataTemplate x:Key="DefaultRoleTemplate">
+            <ComboBox ItemsSource="{Binding Source={StaticResource RoleData}}" SelectedItem="{Binding CompanyRole}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="CEORoleTemplate">
+            <TextBlock Text="{Binding CompanyRole}" FontWeight="Bold" />
+        </DataTemplate>
+
+        
+
+        <DataTemplate x:Key="EmployeeListItemTemplate" DataType="ListBoxItem">
+
+            <GroupBox >
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}" FontWeight="Bold" />
+                        <TextBlock Text=" " />
+                        <TextBlock Text="{Binding LastName}" FontWeight="Bold" />
+                    </StackPanel>
+                </GroupBox.Header>
+
+                <Grid RenderTransformOrigin="0.5,0.5">
+                    <Grid.RenderTransform>
+                        <RotateTransform/>
+                    </Grid.RenderTransform>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  />
+                    <ColumnDefinition  />
+                    <ColumnDefinition  />
+                    <ColumnDefinition  />
+                    <ColumnDefinition  />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="Sex: " Grid.Column="0"  Grid.Row="0" />
+                    <TextBlock Text="{Binding Sex}" Grid.Column="1" Grid.Row="0" />
+                    <TextBlock Text="Birth Date: " Grid.Column="0" Grid.Row="1" />
+                    <TextBlock Text="{Binding BirthDate, StringFormat=dd.MM.yyyy}" Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock Text="Birth Country: " Grid.Row="1" Grid.Column="2"/>
+                    <TextBlock Text="{Binding BirthCountry}" TextTrimming="CharacterEllipsis" Grid.Row=" 1" Grid.Column="3"/>
+                    <TextBlock Text="Company Role: " Grid.Row="0" Grid.Column="2"  />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource RoleData}}" Grid.Row="0" Grid.Column= "3" SelectedItem="{Binding CompanyRole}" />
+                    <TextBlock Text="Salary: " Grid.Row="0" Grid.Column="4" />
+                    <TextBox Text="{Binding Salary}" Grid.Row="0" Grid.Column="5"/>
+                    <TextBlock Text="Salary Currency: " Grid.Row="1" Grid.Column="4" />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource CurrencyData}}" SelectedItem="{Binding SalaryCurrency}" Grid.Column="5" Grid.Row="1" />
+                </Grid>
+                <GroupBox.RenderTransform>
+                    <RotateTransform x:Name="renderTransform" CenterX="200" />
+                </GroupBox.RenderTransform>
+                <GroupBox.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            
+                        
+                        <Storyboard >
+                            <DoubleAnimation
+                               Storyboard.TargetName="renderTransform" Storyboard.TargetProperty="Angle"
+                                 From="-2" To="2" Duration="0:0:0.02" BeginTime="0:0:0.01" AutoReverse="True" RepeatBehavior="2x" />
+                            <DoubleAnimation Storyboard.TargetName="renderTransform"
+                                    Storyboard.TargetProperty="Angle"
+                                From="2" To="0" Duration="0:0:0.01" BeginTime="0:0:0.13" />
+                        </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </GroupBox.Triggers>
+            </GroupBox>
+         
+        </DataTemplate>
+        <DataTemplate x:Key="forCEO" DataType="ListBoxItem">
+
+            <GroupBox >
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}" FontWeight="Bold" />
+                        <TextBlock Text=" " />
+                        <TextBlock Text="{Binding LastName}" FontWeight="Bold" />
+                    </StackPanel>
+                </GroupBox.Header>
+
+                <Grid RenderTransformOrigin="0.5,0.5">
+                    <Grid.RenderTransform>
+                        <RotateTransform/>
+                    </Grid.RenderTransform>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  />
+                        <ColumnDefinition  />
+                        <ColumnDefinition  />
+                        <ColumnDefinition  />
+                        <ColumnDefinition  />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Sex: " Grid.Column="0"  Grid.Row="0" />
+                    <TextBlock Text="{Binding Sex}" Grid.Column="1" Grid.Row="0" />
+                    <TextBlock Text="Birth Date: " Grid.Column="0" Grid.Row="1" />
+                    <TextBlock Text="{Binding BirthDate, StringFormat=dd.MM.yyyy}" Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock Text="Birth Country: " Grid.Row="1" Grid.Column="2"/>
+                    <TextBlock Text="{Binding BirthCountry}" TextTrimming="CharacterEllipsis" Grid.Row=" 1" Grid.Column="3"/>
+                    <TextBlock Text="Company Role: " Grid.Row="0" Grid.Column="2"  />
+                    <TextBlock Grid.Row="0" Grid.Column= "3"  Text="CEO"/>
+                    <TextBlock Text="Salary: " Grid.Row="0" Grid.Column="4" />
+                    <TextBox Text="{Binding Salary}" Grid.Row="0" Grid.Column="5"/>
+                    <TextBlock Text="Salary Currency: " Grid.Row="1" Grid.Column="4" />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource CurrencyData}}" SelectedItem="{Binding SalaryCurrency}" Grid.Column="5" Grid.Row="1" />
+                </Grid>
+                <GroupBox.RenderTransform>
+                    <RotateTransform x:Name="renderTransform" CenterX="200" />
+                </GroupBox.RenderTransform>
+                <GroupBox.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+
+
+                            <Storyboard >
+                                <DoubleAnimation
+                       Storyboard.TargetName="renderTransform" Storyboard.TargetProperty="Angle"
+                         From="-2" To="2" Duration="0:0:0.02" BeginTime="0:0:0.01" AutoReverse="True" RepeatBehavior="2x" />
+                                <DoubleAnimation Storyboard.TargetName="renderTransform"
+                            Storyboard.TargetProperty="Angle"
+                        From="2" To="0" Duration="0:0:0.01" BeginTime="0:0:0.13" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </GroupBox.Triggers>
+            </GroupBox>
+
+        </DataTemplate>
+
+        <local:RoleDataTemplateSelector x:Key="RoleTemplateSelector"
+                                        DefaultTemplate="{StaticResource EmployeeListItemTemplate}"
+                                        CEOTemplate="{StaticResource forCEO}"/>
+
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Row="0" Grid.ColumnSpan="3">
+            <MenuItem Header="File">
+                <MenuItem Header="Open File..." Click="OpenFile_Click"/>
+                <MenuItem Header="Save FIle..." Click="SaveFileAs_Click"/>
+                <MenuItem Header="Save" Click="SaveFile_Click"/>
+                <Separator/>
+                <MenuItem Header="Close" Click="CloseFile_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <ListBox x:Name="EmployeesListBox" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Employees}" ItemTemplateSelector="{StaticResource RoleTemplateSelector}" d:ItemsSource="{d:SampleData ItemCount=5}" />
+
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10">
+            <Button Content="&#x2191;" Click="MoveUp_click" Width="100" Height="30"/>
+            <Button Content="&#x2193;" Click="MoveDown_click" Width="100" Height="30" Margin="0,10,0,0"/>
+            <Button Content="Add New Employee" Click="AddNewEmployee_Click" Width="100" Height="30" Margin="0,10,0,0"/>
+            <Button Content="Delete Employee" Click="DeleteEmployee_Click" Width="100" Height="30" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
