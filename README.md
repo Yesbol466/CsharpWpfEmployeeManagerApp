@@ -11,7 +11,9 @@ This is an Employee Manager application built with WPF in Visual Studio 2022. Th
 - User-friendly interface.
 
 ## Screenshots
-
+![Begin Screen](WPF%20screenshots/Begin.png)
+![Edit Screen](WPF%20screenshots/Edit.png)
+![Add Screen](WPF%20screenshots/add.png)
 ## Prerequisites
 
 - Visual Studio 2022
